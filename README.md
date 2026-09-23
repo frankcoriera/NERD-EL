@@ -1,7 +1,7 @@
 # NERD+EL
 Este repositorio ha sido creado con la finalidad de compartir una propuesta NERD+EL usando Spacy y como base de conocimiento Wikidata.
 
-```
+
 # 🔗 Semantic Entity Linking Pipeline (`NERD+EL`)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)
@@ -9,7 +9,7 @@ Este repositorio ha sido creado con la finalidad de compartir una propuesta NERD
 ![spaCy](https://img.shields.io/badge/spaCy-es__core__news__lg-09A3D5?logo=spacy)
 ![Wikidata](https://img.shields.io/badge/Knowledge%20Base-Wikidata-339999?logo=wikidata)
 ![License](https://img.shields.io/badge/License-MIT-green)
-```
+
 
 Sistema avanzado de **Reconocimiento de Entidades Nombradas (NER)** y **Entity Linking (EL)** hacia **Wikidata** en español. El sistema resuelve la ambigüedad semántica mediante un **pipeline híbrido en dos pasadas** que combina análisis léxico, compatibilidad ortogonal de tipos, extracción contextual y **razonamiento sobre el grafo de conocimiento**.
 
