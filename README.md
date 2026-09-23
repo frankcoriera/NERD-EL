@@ -2,7 +2,7 @@
 Este repositorio ha sido creado con la finalidad de compartir una propuesta NERD+EL usando Spacy y como base de conocimiento Wikidata.
 
 ```
-# 🔗 Semantic Entity Linking Pipeline (`Appgpt`)
+# 🔗 Semantic Entity Linking Pipeline (`NERD+EL`)
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688?logo=fastapi)
