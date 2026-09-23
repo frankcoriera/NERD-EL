@@ -1,57 +1,128 @@
 # NERD-EL
 Este repositorio ha sido creado con la finalidad de compartir una propuesta NERD+EL usando Spacy y como base de conocimiento Wikidata.
 
-\# 🔗 Semantic Entity Linking Pipeline (\`App\`)
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python) 
-![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688?logo=fastapi) 
-![spaCy](https://img.shields.io/badge/spaCy-es\_\_core\_\_news\_\_lg-09A3D5?logo=spacy) 
-![Wikidata](https://img.shields.io/badge/Knowledge%20Base-Wikidata-339999?logo=wikidata) 
-![License](https://img.shields.io/badge/License-MIT-green) 
+```
+# 🔗 Semantic Entity Linking Pipeline (`Appgpt`)
 
-Sistema avanzado de \*\*Reconocimiento de Entidades Nombradas (NER)\*\* y \*\*Entity Linking (EL)\*\* hacia \*\*Wikidata\*\* en español. El sistema resuelve la ambigüedad semántica mediante un \*\*pipeline híbrido en dos pasadas\*\* que combina análisis léxico, compatibilidad ortogonal de tipos, extracción contextual y \*\*razonamiento sobre el grafo de conocimiento\*\*. 
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688?logo=fastapi)
+![spaCy](https://img.shields.io/badge/spaCy-es__core__news__lg-09A3D5?logo=spacy)
+![Wikidata](https://img.shields.io/badge/Knowledge%20Base-Wikidata-339999?logo=wikidata)
+![License](https://img.shields.io/badge/License-MIT-green)
 
---- ## 🏛️ Arquitectura del Sistema 
-El pipeline procesa el texto en dos fases consecutivas (\*Two-Pass Execution\*): 
-1\. \*\*Pasada 1 (Exploración Local):\*\* Extracción de menciones NER, resolución semántica de tipos (\`EntityTypeResolver\`) y búsqueda preliminar de candidatos en Wikidata. 
-2\. \*\*Pasada 2 (Razonamiento Contextual):\*\* Construcción de un subgrafo relacional (\`GraphReasoner\`), scoring multi-señal (\`CandidateRanker\`) y asignación categórica de estado en la capa de decisión. \`\`\`mermaid graph TD A[Texto de entrada] --&gt; B[nlp\_engine.py / spaCy] B --&gt; C[entity\_type\_resolver.py] C --&gt; D[contextual\_linker.py] D --&gt; E[wikidata.py / Candidates] E --&gt; F[graph\_reasoner.py / SPARQL] F --&gt; G[candidate\_ranker.py / 7 Signals] G --&gt; H[decision\_layer.py] H --&gt; I[LINKED / AMBIGUOUS / NIL] \`\`\`
+Sistema avanzado de **Reconocimiento de Entidades Nombradas (NER)** y **Entity Linking (EL)** hacia **Wikidata** en español. El sistema resuelve la ambigüedad semántica mediante un **pipeline híbrido en dos pasadas** que combina análisis léxico, compatibilidad ortogonal de tipos, extracción contextual y **razonamiento sobre el grafo de conocimiento**.
 
---- ## ⚙️ Características Clave 
-\* \*\*Ajuste Semántico Léxico (\`EntityTypeResolver\`):\*\* Corrige desviaciones del modelo base (ej. reasignando menciones institucionales como \`"Universidad de Valladolid"\` de \`LOC\` a \`ORG\`). \* \*\*Vector de Scoring de 7 Señales (\`CandidateRanker\`):\*\* \* Ponderación: \*\*Grafo (20%)\*\*, \*\*Léxica (20%)\*\*, \*\*Dominio (15%)\*\*, \*\*Contexto (15%)\*\*, \*\*Coincidencia Exacta (10%)\*\*, \*\*Compatibilidad NER (10%)\*\* y \*\*Geografía (10%)\*\*. \* \*\*Clasificación Categórica Robusta (\`DecisionLayer\`):\*\* \* \`LINKED\`: Entidad enlazada con alta confianza (\`score &gt;= 0.50\` y \`margin &gt;= 0.10\`). \* \`AMBIGUOUS\`: Conflicto entre múltiples candidatos cercanos (\`margin &lt; 0.10\`). \* \`NIL\`: Entidad no existente en Wikidata o por debajo del umbral de calidad (\`score &lt; 0.50\`). \* \*\*Microservicio REST de Alta Velocidad:\*\* Desarrollado sobre \*\*FastAPI\*\* con documentación interactiva Swagger/OpenAPI.
+---
 
---- ## 🚀 Instalación y Despliegue Local 
+## 🏛️ Arquitectura del Sistema
+
+El pipeline procesa el texto en dos fases consecutivas (*Two-Pass Execution*):
+1. **Pasada 1 (Exploración Local):** Extracción de menciones NER, resolución semántica de tipos (`EntityTypeResolver`) y búsqueda preliminar de candidatos en Wikidata.
+2. **Pasada 2 (Razonamiento Contextual):** Construcción de un subgrafo relacional (`GraphReasoner`), scoring multi-señal (`CandidateRanker`) y asignación categórica de estado en la capa de decisión.
+
+```mermaid
+graph TD
+    A[Texto de entrada] --&gt; B[nlp_engine.py / spaCy]
+    B --&gt; C[entity_type_resolver.py]
+    C --&gt; D[contextual_linker.py]
+    D --&gt; E[wikidata.py / Candidates]
+    E --&gt; F[graph_reasoner.py / SPARQL]
+    F --&gt; G[candidate_ranker.py / 7 Signals]
+    G --&gt; H[decision_layer.py]
+    H --&gt; I[LINKED / AMBIGUOUS / NIL]
+```
+
+---
+
+## ⚙️ Características Clave
+
+* **Ajuste Semántico Léxico (`EntityTypeResolver`):** Corrige desviaciones del modelo base (ej. reasignando menciones institucionales como `"Universidad de Valladolid"` de `LOC` a `ORG`).
+* **Vector de Scoring de 7 Señales (`CandidateRanker`):**
+  * Ponderación: **Grafo (20%)**, **Léxica (20%)**, **Dominio (15%)**, **Contexto (15%)**, **Coincidencia Exacta (10%)**, **Compatibilidad NER (10%)** y **Geografía (10%)**.
+* **Clasificación Categórica Robusta (`DecisionLayer`):**
+  * `LINKED`: Entidad enlazada con alta confianza (`score &gt;= 0.50` y `margin &gt;= 0.10`).
+  * `AMBIGUOUS`: Conflicto entre múltiples candidatos cercanos (`margin &lt; 0.10`).
+  * `NIL`: Entidad no existente en Wikidata o por debajo del umbral de calidad (`score &lt; 0.50`).
+* **Microservicio REST de Alta Velocidad:** Desarrollado sobre **FastAPI** con documentación interactiva Swagger/OpenAPI.
+
+---
+
+## 🚀 Instalación y Despliegue Local
+
 ### Requisitos Previos
-\* \*\*Python 3.10\*\* o superior. 
-\* Conexión a Internet (para la API/SPARQL pública de Wikidata). 
+* **Python 3.10** o superior.
+* Conexión a Internet (para la API/SPARQL pública de Wikidata).
 
-### Pasos de Instalación 
-1\. \*\*Clonar el repositorio:\*\* \`\`\`bash git clone https://github.com/frankcoriera/NERD-EL.git 
-2\. \*\*Crear y activar un entorno virtual:\*\* \`\`\`bash python3 -m venv venv source venv/bin/activate # En Windows: venv\\Scripts\\activate \`\`\` 
-3\. \*\*Instalar dependencias:\*\* \`\`\`bash pip install -r Requirements.txt \`\`\` 
-4\. \*\*Descargar el modelo en español de spaCy:\*\* \`\`\`bash python -m spacy download es\_core\_news\_lg \`\`\`
+### Pasos de Instalación
 
---- ## 🧪 Ejecución y Uso de la API 
-### 1\. Iniciar el Servidor REST
-Desde la carpeta \`NERD+EL/\`: \`\`\`bash uvicorn main:app --reload --host 0.0.0.0 --port 8000 \`\`\` 
+1. **Clonar el repositorio:**
+   ```bash
+   git clone [https://github.com/tu-usuario/entity-linking-wikidata.git](https://github.com/frankcoriera/NERD-EL.git)
+   cd NERD+EL
+   ```
+
+2. **Crear y activar un entorno virtual:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # En Windows: venv\Scripts\activate
+   ```
+
+3. **Instalar dependencias:**
+   ```bash
+   pip install -r Requirements.txt
+   ```
+
+4. **Descargar el modelo en español de spaCy:**
+   ```bash
+   python -m spacy download es_core_news_lg
+   ```
+
+---
+
+## 🧪 Ejecución y Uso de la API
+
+### 1. Iniciar el Servidor REST
+Desde la carpeta `Appgpt/`:
+```bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
 La documentación interactiva estará disponible en:
-\* \*\*Swagger UI:\*\* \`http://localhost:8000/docs\`
- \* \*\*ReDoc:\*\* \`http://localhost:8000/redoc\` 
+* **Swagger UI:** `http://localhost:8000/docs`
+* **ReDoc:** `http://localhost:8000/redoc`
 
-### 2\. Ejemplo de Petición con 
-\`curl\` \`\`\`bash curl -X 'POST' \\ 'http://localhost:8000/analyze' \\ -H 'accept: application/json' \\ -H 'Content-Type: application/json' \\ -d '{ "text": "La Universidad de Valladolid está en Valladolid." }' \`\`\`
+### 2. Ejemplo de Petición con `curl`
+```bash
+curl -X 'POST' \
+  'http://localhost:8000/analyze' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "text": "La Universidad de Valladolid está en Valladolid."
+}'
+```
 
---- ## 📊 Pruebas y Evaluación Cuantitativa 
-El proyecto incluye suites de pruebas automáticas para evaluar el desempeño en el dominio educativo:\`\`\`bash 
+---
 
+## 📊 Pruebas y Evaluación Cuantitativa
+
+El proyecto incluye suites de pruebas automáticas para evaluar el desempeño en el dominio educativo:
+
+```bash
 # Ejecutar la suite principal del pipeline
-python test/test\_pipeline.py 
+python test/test_pipeline.py
 
 # Ejecutar el test específico de dominio educativo (22 entidades)
- python test/education\_test.py\`\`\` 
+python test/education_test.py
+```
 
-### Resultados de Evaluación en Test Real 
-\* \*\*Accuracy Global:\*\* \`72.7%\`
-\* \*\*Precisión en Entidades LINKED:\*\* \`83.3%\`
-\* \*\*Precisión en Entidades NIL:\*\* \`100.0%\`
+### Resultados de Evaluación en Test Real
+* **Accuracy Global:** `72.7%`
+* **Precisión en Entidades LINKED:** `83.3%`
+* **Precisión en Entidades NIL:** `100.0%`
 
---- ## 
-📝 Licencia Este proyecto está bajo la Licencia \*\*MIT\*\*.
+---
+
+## 📝 Licencia
+Este proyecto está bajo la Licencia **MIT**.
+
+```
