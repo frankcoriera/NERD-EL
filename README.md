@@ -58,7 +58,7 @@ graph TD
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone [https://github.com/tu-usuario/entity-linking-wikidata.git](https://github.com/frankcoriera/NERD-EL.git)
+   git clone https://github.com/frankcoriera/NERD-EL.git
    cd NERD+EL
    ```
 
