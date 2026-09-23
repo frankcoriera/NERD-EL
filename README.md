@@ -20,10 +20,11 @@ El pipeline procesa el texto en dos fases consecutivas (\*Two-Pass Execution\*):
 
 --- ## 🚀 Instalación y Despliegue Local 
 ### Requisitos Previos
-\* \*\*Python 3.10\*\* o superior. \* Conexión a Internet (para la API/SPARQL pública de Wikidata). 
+\* \*\*Python 3.10\*\* o superior. 
+\* Conexión a Internet (para la API/SPARQL pública de Wikidata). 
 
 ### Pasos de Instalación 
-1\. \*\*Clonar el repositorio:\*\* \`\`\`bash git clone https://github.com/tu-usuario/entity-linking-wikidata.git cd entity-linking-wikidata/Appgpt \`\`\` 
+1\. \*\*Clonar el repositorio:\*\* \`\`\`bash git clone https://github.com/frankcoriera/NERD-EL.git 
 2\. \*\*Crear y activar un entorno virtual:\*\* \`\`\`bash python3 -m venv venv source venv/bin/activate # En Windows: venv\\Scripts\\activate \`\`\` 
 3\. \*\*Instalar dependencias:\*\* \`\`\`bash pip install -r Requirements.txt \`\`\` 
 4\. \*\*Descargar el modelo en español de spaCy:\*\* \`\`\`bash python -m spacy download es\_core\_news\_lg \`\`\`
