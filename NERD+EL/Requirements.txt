@@ -1,0 +1,9 @@
+Fastapi>=0.100.0
+
+Uvicorn>=0.22.0
+
+Spacy>=3.5.0
+
+Requests>=2.30.0
+
+Pydantic>=2.0
