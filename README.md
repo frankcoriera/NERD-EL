@@ -83,7 +83,7 @@ graph TD
 ## 🧪 Ejecución y Uso de la API
 
 ### 1. Iniciar el Servidor REST
-Desde la carpeta `Appgpt/`:
+Desde la carpeta `NERD+EL/`:
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
