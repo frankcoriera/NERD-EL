@@ -65,7 +65,12 @@ graph TD
 2. **Crear y activar un entorno virtual:**
    ```bash
    python3 -m venv venv
-   source venv/bin/activate  # En Windows: venv\Scripts\activate
+
+   # En linux:
+   source venv/bin/activate
+
+   # En Windows:
+   venv\Scripts\activate
    ```
 
 3. **Instalar dependencias:**
