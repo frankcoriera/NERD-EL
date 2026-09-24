@@ -98,10 +98,7 @@ La documentación interactiva estará disponible en:
 
 ### 2. Ejemplo de Petición con `curl`
 ```bash
-curl -X "POST" ^  "http://127.0.0.1:8000/analyze" ^
--H "accept: application/json" ^
--H "Content-Type: application/json" ^
--d "{\"text\": \"La Universidad de Valladolid está en Valladolid.\", \"language\": \"es\", \"domain\":\"educacion\"}"
+curl -X "POST" ^  "http://127.0.0.1:8000/analyze" ^ -H "accept: application/json" ^ -H "Content-Type: application/json" ^ -d "{\"text\": \"La Universidad de Valladolid está en Valladolid.\", \"language\": \"es\", \"domain\":\"educacion\"}"
 ```
 
 ---
