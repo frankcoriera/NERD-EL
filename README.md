@@ -107,7 +107,7 @@ El proyecto incluye suites de pruebas automáticas para evaluar el desempeño en
 
 ```bash
 # Ejecutar el test específico de dominio educativo (22 entidades)
-python test/education_test.py
+python -m test.education_test
 ```
 
 ### Resultados de Evaluación en Test Real
