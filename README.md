@@ -106,9 +106,6 @@ curl -X "POST" ^  "http://127.0.0.1:8000/analize" ^
 El proyecto incluye suites de pruebas automáticas para evaluar el desempeño en el dominio educativo:
 
 ```bash
-# Ejecutar la suite principal del pipeline
-python test/test_pipeline.py
-
 # Ejecutar el test específico de dominio educativo (22 entidades)
 python test/education_test.py
 ```
