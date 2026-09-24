@@ -70,7 +70,7 @@ graph TD
    source venv/bin/activate
 
    # En Windows:
-   venv\Scripts\activate
+   .venv\Scripts\activate
    ```
 
 3. **Instalar dependencias:**
